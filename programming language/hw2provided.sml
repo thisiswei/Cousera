@@ -9,26 +9,17 @@ fun same_string(s1 : string, s2 : string) =
 (* put your solutions for problem 1 here *)
 
 fun all_except_option x =
-    let fun inthis y = 
-            case y of 
-                 (s, head::tail) => let
-                                        val z = inthis(s, tail)
-                                    in    
-                                        if same_string(s, head)           
-                                        then tail                     
-                                        else if z <> []
-                                        then head::z
-                                        else []
-                                    end
-                 | _ => []
-    in 
-        let val xs' = inthis(x)
-        in
-            if xs' = []
-            then NONE
-            else SOME(xs')
-        end
-    end
+    case x of 
+         (s, head::tail) => let
+                                val z = all_except_option(s, tail)
+                            in    
+                                if same_string(s, head)           
+                                then SOME(tail)
+                                else if z <> NONE
+                                then SOME(head::valOf z)
+                                else NONE
+                            end
+         | _ => NONE
 
 
 
