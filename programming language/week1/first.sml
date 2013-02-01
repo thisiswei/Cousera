@@ -126,6 +126,7 @@ fun max(xs: int list) =
           else tl_ans
         end
 
+
 fun max1(xs: int list) = 
     if null xs
     then NONE

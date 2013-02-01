@@ -9,30 +9,19 @@ fun same_string(s1 : string, s2 : string) =
 (* put your solutions for problem 1 here *)
 
 fun all_except_option x =
-    case x of 
-         (s, head::tail) => let
-                                val z = all_except_option(s, tail)
-                            in    
-                                if same_string(s, head)           
-                                then SOME(tail)
-                                else if z <> NONE
-                                then SOME(head::valOf z)
-                                else NONE
-                            end
-         | _ => NONE
-
-
-
-
+    case x of
+         (s, [singlelist]) => if same_string(s,singlelist)
+                              then SOME []
+                              else NONE 
+       | (s, head::tail) => if same_string(s, head)
+                          then SOME tail
+                          else all_except_option(s, tail)
+       | _ => NONE 
 
 fun get_substitutions1 x = 
     case x of
-         (head::tail, s) => let val z = all_except_option (s, head)
-                            in 
-                                if z = NONE
-                                then get_substitutions1(tail, s) 
-                                else valOf(z) @ get_substitutions1(tail, s)  
-                            end
+         ([onelist], s) => valOf(all_except_option (s, [onelist]))
+       | (head::tail, s) => valOf(all_except_option (s, head))  get_substitutions1(tail, s)
        | _ => []
                             
 
