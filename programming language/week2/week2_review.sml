@@ -209,7 +209,7 @@ fun rev2 xs =
              [] => acc
            | x::xs' => revv (xs', x::acc)
     in
-        revv xs
+        revv (xs, [])
     end
 
 
